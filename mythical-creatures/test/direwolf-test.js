@@ -51,38 +51,38 @@ describe('Direwolf', function() {
     assert.isObject(stark);
   });
 
-  it.skip('should have a name', function() {
-    const stark = new Stark({name:'Bran'});
+  it('should have a name', function() {
+    const stark = new Stark('Bran');
 
     assert.equal(stark.name, 'Bran');
   });
 
   it('should have a default location of Winterfell', function() {
-    const stark = new Stark({name:'Bran'});
+    const stark = new Stark('Bran');
 
     assert.equal(stark.name, 'Bran');
     assert.equal(stark.location, 'Winterfell');
   });
 
   it('should be able to have different locations', function() {
-    const stark = new Stark({name: 'Eddard', area: 'King\'s Landing'})
+    const stark = new Stark('Eddard', 'King\'s Landing')
 
     assert.equal(stark.name, 'Eddard')
     assert.equal(stark.location, 'King\'s Landing')
   })
 
-  it.skip('should start with no Starks to protect', function() {
+  it('should start with no Starks to protect', function() {
     const direwolf = new Direwolf('Nymeria');
-    const stark = new Stark({name: 'Arya'});
+    const stark = new Stark('Arya');
 
     assert.deepEqual(direwolf.starksToProtect, []);
     assert.equal(direwolf.home, 'Beyond the Wall');
     assert.equal(stark.location, 'Winterfell');
   });
 
-  it.skip('should be able to protect a Stark', function() {
+  it('should be able to protect a Stark', function() {
     const direwolf = new Direwolf('Nymeria', 'Riverlands');
-    const stark = new Stark({name: 'Arya', area: 'Riverlands'});
+    const stark = new Stark('Arya', 'Riverlands');
 
     assert.deepEqual(direwolf.starksToProtect, []);
 
@@ -91,23 +91,23 @@ describe('Direwolf', function() {
     assert.equal(direwolf.starksToProtect[0].name, 'Arya');
   });
 
-  it.skip('should only be able to protect a Stark if direwolf and Stark locations match', function() {
+  it('should only be able to protect a Stark if direwolf and Stark locations match', function() {
     const direwolf = new Direwolf('Ghost');
-    const stark = new Stark({name: 'John', area: 'King\'s Landing'});
+    const stark = new Stark('John', 'King\'s Landing');
 
     direwolf.protect(stark);
 
     assert.deepEqual(direwolf.starksToProtect, []);
   });
 
-  it.skip('should only be able to protect two Starks at a time', function() {
+  it('should only be able to protect two Starks at a time', function() {
     const direwolf1 = new Direwolf('Summer', 'Winterfell');
     const direwolf2 = new Direwolf('Lady', 'Winterfell');
-    const stark1 = new Stark({name: 'Sansa'});
-    const stark2 = new Stark({name: 'John'});
-    const stark3 = new Stark({name: 'Rob'});
-    const stark4 = new Stark({name: 'Bran'});
-    const stark5 = new Stark({name: 'Arya'});
+    const stark1 = new Stark('Sansa');
+    const stark2 = new Stark('John');
+    const stark3 = new Stark('Rob');
+    const stark4 = new Stark('Bran');
+    const stark5 = new Stark('Arya');
 
     direwolf1.protect(stark1);
     direwolf1.protect(stark2);
@@ -124,22 +124,22 @@ describe('Direwolf', function() {
     assert.equal(direwolf2.starksToProtect[1].name, 'Bran');
   });
 
-  it.skip('Stark should start off unsafe', function() {
-    const stark = new Stark({name: 'John', area: 'Winterfell'});
+  it('Stark should start off unsafe', function() {
+    const stark = new Stark('John', 'Winterfell');
 
     assert.equal(stark.safe, false);
   });
 
-  it.skip('should know their house words', function() {
-    const stark = new Stark ({name: 'Benjen'})
+  it('should know their house words', function() {
+    const stark = new Stark ('Benjen')
 
     assert.equal(stark.sayHouseWords(), 'Winter is Coming')
   })
 
-  it.skip('should change house words once protected', function() {
+  it('should change house words once protected', function() {
     const direwolf = new Direwolf('Nymeria', 'Dorne');
-    const stark1 = new Stark({name: 'Arya', area: 'Dorne'});
-    const stark2 = new Stark({name: 'Sansa', area: 'Dorne'});
+    const stark1 = new Stark('Arya', 'Dorne');
+    const stark2 = new Stark('Sansa', 'Dorne');
 
     assert.equal(stark1.safe, false);
     assert.equal(stark2.safe, false);
@@ -152,9 +152,9 @@ describe('Direwolf', function() {
     assert.equal(stark2.sayHouseWords(), 'Winter is Coming');
   });
 
-  it.skip('should hunt white walkers when not protecting Starks', function() {
+  it('should hunt white walkers when not protecting Starks', function() {
     const direwolf = new Direwolf('Nymeria', 'Winterfell');
-    const stark = new Stark({name: 'Sansa'});
+    const stark = new Stark('Sansa');
 
     assert.equal(direwolf.huntsWhiteWalkers, true);
 
@@ -162,11 +162,11 @@ describe('Direwolf', function() {
     assert.equal(direwolf.huntsWhiteWalkers, false);
   });
 
-  it.skip('should be able to stop protecting Starks', function() {
+  it('should be able to stop protecting Starks', function() {
     const direwolf1 = new Direwolf('Summer', 'Winterfell');
     const direwolf2 = new Direwolf('Lady', 'Winterfell');
-    const stark1 = new Stark({name: 'Sansa'});
-    const stark2 = new Stark({name: 'Arya'});
+    const stark1 = new Stark('Sansa');
+    const stark2 = new Stark('Arya');
 
     direwolf1.protect(stark2);
     assert.equal(stark2.safe, true);
@@ -179,8 +179,8 @@ describe('Direwolf', function() {
     assert.equal(stark2.safe, false);
   });
 
-  it.skip('should be able to call their direwolf to become protected', function() {
-    const stark = new Stark({name: 'Arya', area: 'Riverlands'})
+  it('should be able to call their direwolf to become protected', function() {
+    const stark = new Stark('Arya', 'Riverlands')
 
     var direwolf = stark.callDirewolf('Nymeria', 'Winterfell')
 
